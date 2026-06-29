@@ -1,6 +1,6 @@
 import pytest
 
-from common.models.normalized_alert import NormalizedAlert
+from common.models.normalized_alert import NormalizedAlert, SEVERITY_BANDS
 
 
 def _valid() -> NormalizedAlert:
@@ -55,9 +55,6 @@ def test_enrich_with_playbook_noop_on_empty():
     alert = _valid()
     alert.enrich_with_playbook(None)
     assert alert.playbook_url is None
-
-
-from common.models.normalized_alert import SEVERITY_BANDS
 
 
 def test_severity_bands_constant():

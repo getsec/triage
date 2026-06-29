@@ -19,11 +19,11 @@ class NormalizerSpec:
     severity_map: Optional[Dict[str, Any]] = None
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "NormalizerSpec":
+    def from_dict(cls, data: Dict[str, Any]) -> NormalizerSpec:
         known = {f.name for f in fields(cls)}
         return cls(**{key: value for key, value in data.items() if key in known})
 
     @classmethod
-    def from_yaml(cls, path: str) -> "NormalizerSpec":
+    def from_yaml(cls, path: str) -> NormalizerSpec:
         with open(path, "r", encoding="utf-8") as handle:
-            return cls.from_dict(yaml.safe_load(handle))
+            return cls.from_dict(yaml.safe_load(handle) or {})

@@ -18,7 +18,7 @@ class HostCatalogEntry:
     alerting_context: Optional[str] = None
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "HostCatalogEntry":
+    def from_dict(cls, data: Dict[str, Any]) -> HostCatalogEntry:
         known = {f.name for f in fields(cls)}
         return cls(**{key: value for key, value in data.items() if key in known})
 
@@ -42,22 +42,22 @@ class HostCatalog:
         self.entries = entries
 
     @classmethod
-    def from_entries(cls, items: List[Dict[str, Any]]) -> "HostCatalog":
+    def from_entries(cls, items: List[Dict[str, Any]]) -> HostCatalog:
         return cls([HostCatalogEntry.from_dict(item) for item in items])
 
     @classmethod
-    def from_json_file(cls, path: str) -> "HostCatalog":
+    def from_json_file(cls, path: str) -> HostCatalog:
         with open(path, "r", encoding="utf-8") as handle:
             return cls.from_entries(json.load(handle))
 
     @classmethod
-    def from_yaml(cls, path: str) -> "HostCatalog":
+    def from_yaml(cls, path: str) -> HostCatalog:
         with open(path, "r", encoding="utf-8") as handle:
             data = yaml.safe_load(handle) or []
         return cls.from_entries(data if isinstance(data, list) else [data])
 
     @classmethod
-    def from_env(cls, var_name: str) -> "HostCatalog":
+    def from_env(cls, var_name: str) -> HostCatalog:
         value = os.environ.get(var_name, "").strip()
         if not value:
             return cls([])

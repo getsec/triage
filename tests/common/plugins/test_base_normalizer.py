@@ -1,5 +1,6 @@
 import pytest
 
+from common.enrichment.host_catalog import HostCatalog
 from common.models.normalized_alert import NormalizedAlert
 from common.plugins.base_normalizer import BaseNormalizer
 
@@ -36,9 +37,6 @@ def test_safe_get_traverses_dotted_path():
 def test_safe_get_returns_default_on_missing():
     assert BaseNormalizer.safe_get({"a": {}}, "a.b.c", default="fallback") == "fallback"
     assert BaseNormalizer.safe_get({"a": 5}, "a.b", default=None) is None
-
-
-from common.enrichment.host_catalog import HostCatalog
 
 
 def _catalog_for_enrich():

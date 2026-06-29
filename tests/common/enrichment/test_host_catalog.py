@@ -1,7 +1,5 @@
 import json
 
-import pytest
-
 from common.enrichment.host_catalog import HostCatalog, HostCatalogEntry
 
 ENTRIES = [
