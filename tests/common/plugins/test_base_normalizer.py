@@ -36,3 +36,38 @@ def test_safe_get_traverses_dotted_path():
 def test_safe_get_returns_default_on_missing():
     assert BaseNormalizer.safe_get({"a": {}}, "a.b.c", default="fallback") == "fallback"
     assert BaseNormalizer.safe_get({"a": 5}, "a.b", default=None) is None
+
+
+from common.enrichment.host_catalog import HostCatalog
+
+
+def _catalog_for_enrich():
+    return HostCatalog.from_entries(
+        [{"type": "web", "hostname_patterns": ["web-prod-"], "routing_channel": "web-alerts"}]
+    )
+
+
+def test_enrich_with_host_context_sets_context_on_match():
+    alert = NormalizedAlert(id="a1", source="edr", title="t", severity="high", hostname="web-prod-01")
+    result = BaseNormalizer.enrich_with_host_context(alert, _catalog_for_enrich())
+    assert result is alert
+    assert alert.host_context == {"type": "web", "routing_channel": "web-alerts"}
+
+
+def test_enrich_with_host_context_noop_on_no_match():
+    alert = NormalizedAlert(id="a1", source="edr", title="t", severity="high", hostname="other-1")
+    BaseNormalizer.enrich_with_host_context(alert, _catalog_for_enrich())
+    assert alert.host_context is None
+
+
+def test_enrich_with_host_context_noop_on_missing_hostname():
+    alert = NormalizedAlert(id="a1", source="edr", title="t", severity="high")
+    BaseNormalizer.enrich_with_host_context(alert, _catalog_for_enrich())
+    assert alert.host_context is None
+
+
+def test_enrich_with_host_context_noop_on_none_catalog():
+    alert = NormalizedAlert(id="a1", source="edr", title="t", severity="high", hostname="web-prod-01")
+    result = BaseNormalizer.enrich_with_host_context(alert, None)
+    assert result is alert
+    assert alert.host_context is None
