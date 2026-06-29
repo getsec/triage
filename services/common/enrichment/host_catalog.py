@@ -5,6 +5,8 @@ import os
 from dataclasses import dataclass, field, fields
 from typing import Any, Dict, List, Optional
 
+import yaml
+
 
 @dataclass
 class HostCatalogEntry:
@@ -47,6 +49,12 @@ class HostCatalog:
     def from_json_file(cls, path: str) -> "HostCatalog":
         with open(path, "r", encoding="utf-8") as handle:
             return cls.from_entries(json.load(handle))
+
+    @classmethod
+    def from_yaml(cls, path: str) -> "HostCatalog":
+        with open(path, "r", encoding="utf-8") as handle:
+            data = yaml.safe_load(handle) or []
+        return cls.from_entries(data if isinstance(data, list) else [data])
 
     @classmethod
     def from_env(cls, var_name: str) -> "HostCatalog":

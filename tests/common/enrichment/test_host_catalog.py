@@ -100,3 +100,10 @@ def test_from_env_with_file_path(monkeypatch, tmp_path):
 def test_from_env_missing_returns_empty_catalog(monkeypatch):
     monkeypatch.delenv("HOST_CATALOG", raising=False)
     assert HostCatalog.from_env("HOST_CATALOG").lookup("web-prod-1") is None
+
+
+def test_from_yaml_loads_entries(tmp_path):
+    path = tmp_path / "catalog.yaml"
+    path.write_text("- type: web\n  hostname_patterns: [web-prod-]\n  routing_channel: web-alerts\n")
+    catalog = HostCatalog.from_yaml(str(path))
+    assert catalog.lookup("web-prod-9").type == "web"
