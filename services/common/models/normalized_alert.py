@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass, field, fields
 from typing import Any, Dict, List, Optional
 
 REQUIRED_FIELDS = ("id", "source", "title", "severity")
+SEVERITY_BANDS = ("informational", "low", "medium", "high", "critical")
 
 
 @dataclass
@@ -58,6 +59,28 @@ class NormalizedAlert:
     investigation_tools_used: List[str] = field(default_factory=list)
     investigation_cost_usd: Optional[float] = None
     investigation_iterations: Optional[int] = None
+
+    # Finding classification (EDR event vs CNAPP posture — see vendor research)
+    finding_class: Optional[str] = None
+    finding_status: Optional[str] = None
+    delivery_method: Optional[str] = None
+
+    # Cloud / posture context (CNAPP/CSPM)
+    cloud_provider: Optional[str] = None
+    cloud_account_id: Optional[str] = None
+    cloud_account_name: Optional[str] = None
+    cloud_region: Optional[str] = None
+    resource_id: Optional[str] = None
+    resource_type: Optional[str] = None
+    affected_service: Optional[str] = None
+    cvss_score: Optional[float] = None
+    cve_ids: List[str] = field(default_factory=list)
+    compliance_frameworks: List[str] = field(default_factory=list)
+    mitre_techniques: List[str] = field(default_factory=list)
+    attack_path: bool = False
+    first_seen_at: Optional[str] = None
+    last_seen_at: Optional[str] = None
+    remediation_guidance: Optional[str] = None
 
     def __post_init__(self) -> None:
         missing = [name for name in REQUIRED_FIELDS if not getattr(self, name)]
