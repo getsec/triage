@@ -29,6 +29,9 @@ class DeclarativeNormalizer(BaseNormalizer):
 
         alerts: List[NormalizedAlert] = []
         for element in elements:
+            # Best-effort batching: skip any element that fails to produce a
+            # valid alert — whether it fails `required` validation or core-field
+            # construction in from_dict. Single-source mode re-raises instead.
             try:
                 alerts.append(self._build(element))
             except ValueError:

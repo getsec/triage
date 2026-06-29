@@ -82,3 +82,19 @@ def test_batched_skips_invalid_elements():
 def test_batched_missing_or_nonlist_path_returns_empty():
     assert DeclarativeNormalizer(BATCHED).normalize({}) == []
     assert DeclarativeNormalizer(BATCHED).normalize({"issues": "nope"}) == []
+
+
+def test_batched_skips_element_that_cannot_build_even_with_empty_required():
+    # `required` is empty, but an element missing a core field (id) still
+    # cannot form a valid NormalizedAlert; batched mode skips it best-effort.
+    spec = NormalizerSpec.from_dict({
+        "source": "vendorx",
+        "alerts_path": "items",
+        "field_map": {"id": "id", "title": "title", "severity": "severity"},
+    })
+    raw = {"items": [
+        {"id": "ok-1", "title": "t", "severity": "high"},
+        {"title": "no-id", "severity": "low"},
+    ]}
+    alerts = DeclarativeNormalizer(spec).normalize(raw)
+    assert [a.id for a in alerts] == ["ok-1"]
