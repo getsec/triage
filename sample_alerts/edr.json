@@ -1,0 +1,11 @@
+{
+  "detection_id": "edr-2026-0001",
+  "rule_name": "Suspicious PowerShell Execution",
+  "rule_code": "T1059.001",
+  "severity": "high",
+  "description": "Encoded PowerShell command observed on endpoint.",
+  "device": {"hostname": "web-prod-01", "os": "Windows"},
+  "timestamp": "2026-06-29T10:00:00Z",
+  "confidence": 0.92,
+  "link": "https://edr.example/detections/edr-2026-0001"
+}
