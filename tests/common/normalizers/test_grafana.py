@@ -26,6 +26,16 @@ def test_field_mapping():
     assert first.timestamp == "2026-06-29T11:00:00Z"
     assert first.link == "https://grafana.example/alerting/graf-cpu-001"
     assert first.description == "CPU usage sustained above 90% for 5m."
+    assert first.raw_data == _raw()["alerts"][0]
+
+
+def test_title_falls_back_to_annotations_summary():
+    raw = {"alerts": [
+        {"fingerprint": "x", "labels": {"severity": "info"},
+         "annotations": {"summary": "Fallback title"}},
+    ]}
+    alert = GrafanaNormalizer().normalize(raw)[0]
+    assert alert.title == "Fallback title"
 
 
 def test_empty_or_missing_alerts_returns_empty_list():
