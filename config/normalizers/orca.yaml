@@ -1,0 +1,23 @@
+source: orca
+finding_class: posture_finding
+delivery_method: webhook
+alerts_path: alerts
+required: [id]
+field_map:
+  id: alert_id
+  title: type_string
+  severity: score
+  finding_status: state
+  resource_type: asset_type
+  resource_id: asset_unique_id
+  cloud_account_id: cloud_account_id
+  cloud_provider: cloud_vendor
+  cve_ids: cve_list
+  remediation_guidance: recommendation
+severity_map:
+  ranges:
+    - {min: 0, max: 3.9, band: low}
+    - {min: 4, max: 6.9, band: medium}
+    - {min: 7, max: 8.9, band: high}
+    - {min: 9, max: 10, band: critical}
+  default: low

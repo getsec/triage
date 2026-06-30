@@ -1,0 +1,15 @@
+{
+  "id": "prisma-alert-1",
+  "status": "open",
+  "severity": "high",
+  "policy": {"name": "S3 bucket versioning disabled", "policyType": "config"},
+  "resource": {
+    "id": "arn:aws:s3:::example-bucket",
+    "resourceType": "S3Bucket",
+    "region": "us-east-1",
+    "account": "111122223333"
+  },
+  "firstSeen": "2026-06-20T00:00:00Z",
+  "lastSeen": "2026-06-29T00:00:00Z",
+  "alertTime": "2026-06-29T09:00:00Z"
+}

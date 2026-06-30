@@ -77,3 +77,24 @@ def test_wiz_spec():
     assert a.cloud_provider == "AWS"
     assert a.resource_id == "arn:aws:s3:::example-bucket"
     assert a.resource_type == "S3Bucket"
+
+
+def test_orca_spec():
+    a = _run("orca")[0]
+    assert a.id == "orca-alert-1"
+    assert a.severity == "high"            # 8.5 -> high
+    assert a.finding_class == "posture_finding"
+    assert a.finding_status == "open"
+    assert a.cloud_provider == "aws"
+    assert a.cve_ids == ["CVE-2026-0001"]
+    assert a.remediation_guidance == "Disable public access on the bucket."
+
+
+def test_prisma_spec():
+    a = _run("prisma")[0]
+    assert a.id == "prisma-alert-1"
+    assert a.severity == "high"            # passthrough
+    assert a.finding_class == "posture_finding"
+    assert a.finding_status == "open"
+    assert a.resource_id == "arn:aws:s3:::example-bucket"
+    assert a.resource_type == "S3Bucket"
