@@ -1,0 +1,14 @@
+source: edr
+finding_class: threat_detection
+delivery_method: api
+required: [id, title]
+field_map:
+  id: detection_id
+  title: rule_name
+  severity: severity
+  description: description
+  timestamp: timestamp
+  link: link
+  hostname: device.hostname
+  code: rule_code
+  score: confidence
