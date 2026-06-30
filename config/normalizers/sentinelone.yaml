@@ -1,0 +1,11 @@
+source: sentinelone
+finding_class: threat_detection
+delivery_method: api
+required: [id, title]
+field_map:
+  id: alertInfo.alertId
+  title: [alertInfo.alertName, ruleInfo.name]
+  severity: ruleInfo.severity
+  description: alertInfo.analystVerdict
+  hostname: agentDetectionInfo.agentHostname
+  timestamp: alertInfo.createdAt

@@ -58,3 +58,22 @@ def test_crowdstrike_spec():
     assert a.finding_class == "threat_detection"
     assert a.hostname == "win-ep-01"
     assert a.code == "T1059.001"
+
+
+def test_sentinelone_spec():
+    a = _run("sentinelone")[0]
+    assert a.id == "s1-alert-1"
+    assert a.severity == "high"            # "High" passthrough
+    assert a.finding_class == "threat_detection"
+    assert a.hostname == "mac-ep-03"
+
+
+def test_wiz_spec():
+    a = _run("wiz")[0]
+    assert a.id == "wiz-issue-1"
+    assert a.severity == "critical"        # "CRITICAL" passthrough
+    assert a.finding_class == "posture_finding"
+    assert a.finding_status == "OPEN"
+    assert a.cloud_provider == "AWS"
+    assert a.resource_id == "arn:aws:s3:::example-bucket"
+    assert a.resource_type == "S3Bucket"
