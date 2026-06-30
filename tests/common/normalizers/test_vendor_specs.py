@@ -38,3 +38,23 @@ def test_grafana_spec():
     assert alerts[1].severity == "critical"  # passthrough
     assert alerts[0].finding_class == "threat_detection"
     assert alerts[0].hostname == "db-prod-02"
+
+
+def test_guardduty_spec():
+    a = _run("guardduty")[0]
+    assert a.id == "gd-finding-1"
+    assert a.source == "guardduty"
+    assert a.severity == "medium"          # 5.0 -> medium
+    assert a.finding_class == "threat_detection"
+    assert a.cloud_provider == "aws"       # literal default
+    assert a.cloud_account_id == "111122223333"
+    assert a.resource_id == "i-0abcd1234ef567890"
+
+
+def test_crowdstrike_spec():
+    a = _run("crowdstrike")[0]
+    assert a.id == "cs-alert-1"
+    assert a.severity == "critical"        # 85 -> critical (CPS)
+    assert a.finding_class == "threat_detection"
+    assert a.hostname == "win-ep-01"
+    assert a.code == "T1059.001"

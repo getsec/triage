@@ -1,0 +1,9 @@
+{
+  "composite_id": "cs-alert-1",
+  "display_name": "Malicious PowerShell execution",
+  "severity": 85,
+  "description": "Encoded PowerShell command consistent with a known threat actor.",
+  "device": {"hostname": "win-ep-01"},
+  "created_timestamp": "2026-06-29T11:00:00Z",
+  "technique_id": "T1059.001"
+}
