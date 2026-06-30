@@ -41,3 +41,19 @@ def test_no_map_falls_back_to_medium():
 def test_exact_takes_precedence_over_range():
     smap = {"exact": {"5": "critical"}, "ranges": [{"min": 0, "max": 10, "band": "low"}]}
     assert normalize_severity("5", smap) == "critical"
+
+
+def test_already_valid_band_passes_through_lowercased():
+    assert normalize_severity("HIGH") == "high"
+    assert normalize_severity("Critical") == "critical"
+    assert normalize_severity("informational") == "informational"
+
+
+def test_passthrough_does_not_override_explicit_exact_map():
+    smap = {"exact": {"high": "low"}}
+    assert normalize_severity("high", smap) == "low"
+
+
+def test_non_band_string_still_falls_to_default():
+    assert normalize_severity("warning", {"default": "medium"}) == "medium"
+    assert normalize_severity("warning") == "medium"
