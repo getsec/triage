@@ -1,0 +1,8 @@
+{
+  "source": "custom_scanner",
+  "name": "Port scan detected",
+  "level": "medium",
+  "host": "k8s-worker-07",
+  "details": "Sequential connection attempts across 1024 ports.",
+  "time": "2026-06-29T12:00:00Z"
+}

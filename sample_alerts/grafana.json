@@ -1,0 +1,21 @@
+{
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "fingerprint": "graf-cpu-001",
+      "labels": {"alertname": "HighCPU", "severity": "warning", "instance": "db-prod-02", "grafana_code": "CPU-001"},
+      "annotations": {"summary": "CPU above 90%", "description": "CPU usage sustained above 90% for 5m."},
+      "startsAt": "2026-06-29T11:00:00Z",
+      "generatorURL": "https://grafana.example/alerting/graf-cpu-001"
+    },
+    {
+      "status": "firing",
+      "fingerprint": "graf-mem-002",
+      "labels": {"alertname": "HighMemory", "severity": "critical", "instance": "db-prod-02", "grafana_code": "MEM-002"},
+      "annotations": {"summary": "Memory above 95%", "description": "Memory usage above 95%."},
+      "startsAt": "2026-06-29T11:01:00Z",
+      "generatorURL": "https://grafana.example/alerting/graf-mem-002"
+    }
+  ]
+}

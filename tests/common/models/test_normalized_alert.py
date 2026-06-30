@@ -1,6 +1,6 @@
 import pytest
 
-from common.models.normalized_alert import NormalizedAlert
+from common.models.normalized_alert import NormalizedAlert, SEVERITY_BANDS
 
 
 def _valid() -> NormalizedAlert:
@@ -55,3 +55,40 @@ def test_enrich_with_playbook_noop_on_empty():
     alert = _valid()
     alert.enrich_with_playbook(None)
     assert alert.playbook_url is None
+
+
+def test_severity_bands_constant():
+    assert SEVERITY_BANDS == ("informational", "low", "medium", "high", "critical")
+
+
+def test_cnapp_fields_default_empty_and_optional():
+    alert = NormalizedAlert(id="a1", source="wiz", title="t", severity="high")
+    assert alert.finding_class is None
+    assert alert.finding_status is None
+    assert alert.cloud_provider is None
+    assert alert.resource_id is None
+    assert alert.cvss_score is None
+    assert alert.cve_ids == []
+    assert alert.compliance_frameworks == []
+    assert alert.mitre_techniques == []
+    assert alert.attack_path is False
+    assert alert.delivery_method is None
+
+
+def test_cnapp_fields_roundtrip_through_store_and_from_dict():
+    alert = NormalizedAlert(
+        id="a1", source="wiz", title="t", severity="high",
+        finding_class="posture_finding", cloud_provider="aws",
+        resource_id="arn:aws:s3:::ex", cve_ids=["CVE-2026-1"], attack_path=True,
+    )
+    restored = NormalizedAlert.from_dict(alert.to_store_dict())
+    assert restored.finding_class == "posture_finding"
+    assert restored.cloud_provider == "aws"
+    assert restored.cve_ids == ["CVE-2026-1"]
+    assert restored.attack_path is True
+
+
+def test_from_dict_still_tolerant_of_pre_extension_docs():
+    # an older stored doc with none of the new fields still loads
+    restored = NormalizedAlert.from_dict({"id": "a1", "source": "edr", "title": "t", "severity": "low"})
+    assert restored.finding_class is None
