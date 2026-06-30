@@ -1,8 +1,9 @@
 source: grafana
-finding_class: threat_detection
 delivery_method: webhook
 alerts_path: alerts
 required: [id, severity]
+defaults:
+  title: "grafana alert"
 field_map:
   id: fingerprint
   title: [labels.alertname, annotations.summary]

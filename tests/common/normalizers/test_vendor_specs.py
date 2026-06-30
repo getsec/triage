@@ -1,8 +1,6 @@
 import json
 import pathlib
 
-import pytest
-
 from common.normalizers.declarative import DeclarativeNormalizer
 from common.normalizers.spec import NormalizerSpec
 
@@ -36,7 +34,7 @@ def test_grafana_spec():
     assert alerts[0].source == "grafana"
     assert alerts[0].severity == "medium"  # "warning" -> medium via exact map
     assert alerts[1].severity == "critical"  # passthrough
-    assert alerts[0].finding_class == "threat_detection"
+    assert alerts[0].finding_class is None
     assert alerts[0].hostname == "db-prod-02"
 
 

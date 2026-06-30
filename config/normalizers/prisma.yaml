@@ -1,7 +1,7 @@
 source: prisma
 finding_class: posture_finding
 delivery_method: webhook
-required: [id]
+required: [id, title]
 field_map:
   id: id
   title: [policy.name, reason]

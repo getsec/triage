@@ -2,7 +2,7 @@ source: wiz
 finding_class: posture_finding
 delivery_method: webhook
 alerts_path: issues
-required: [id]
+required: [id, title]
 field_map:
   id: id
   title: [name, rule.name, type]

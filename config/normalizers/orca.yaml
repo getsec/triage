@@ -2,7 +2,7 @@ source: orca
 finding_class: posture_finding
 delivery_method: webhook
 alerts_path: alerts
-required: [id]
+required: [id, title]
 field_map:
   id: alert_id
   title: type_string
