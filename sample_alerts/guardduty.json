@@ -1,0 +1,12 @@
+{
+  "id": "gd-finding-1",
+  "type": "Recon:EC2/PortProbeUnprotectedPort",
+  "severity": 5.0,
+  "title": "Unprotected port on EC2 instance being probed",
+  "description": "EC2 instance has an unprotected port that is being probed by a known malicious host.",
+  "accountId": "111122223333",
+  "region": "us-east-1",
+  "resource": {"instanceDetails": {"instanceId": "i-0abcd1234ef567890"}},
+  "createdAt": "2026-06-29T10:00:00Z",
+  "updatedAt": "2026-06-29T10:05:00Z"
+}

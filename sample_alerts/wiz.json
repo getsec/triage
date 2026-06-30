@@ -1,0 +1,20 @@
+{
+  "issues": [
+    {
+      "id": "wiz-issue-1",
+      "type": "TOXIC_COMBINATION",
+      "name": "Publicly exposed bucket with sensitive data",
+      "severity": "CRITICAL",
+      "status": "OPEN",
+      "createdAt": "2026-06-20T08:00:00Z",
+      "updatedAt": "2026-06-29T08:00:00Z",
+      "resource": {
+        "id": "arn:aws:s3:::example-bucket",
+        "type": "S3Bucket",
+        "region": "us-east-1",
+        "subscriptionId": "111122223333",
+        "cloudPlatform": "AWS"
+      }
+    }
+  ]
+}

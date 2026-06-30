@@ -1,0 +1,20 @@
+source: crowdstrike
+finding_class: threat_detection
+delivery_method: api
+required: [id, title]
+field_map:
+  id: [composite_id, id]
+  title: [display_name, name]
+  severity: severity
+  description: description
+  timestamp: [created_timestamp, timestamp]
+  hostname: device.hostname
+  code: technique_id
+severity_map:
+  ranges:
+    - {min: 1, max: 19, band: informational}
+    - {min: 20, max: 39, band: low}
+    - {min: 40, max: 59, band: medium}
+    - {min: 60, max: 79, band: high}
+    - {min: 80, max: 100, band: critical}
+  default: medium

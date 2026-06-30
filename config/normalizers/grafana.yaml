@@ -1,0 +1,20 @@
+source: grafana
+delivery_method: webhook
+alerts_path: alerts
+required: [id, severity]
+defaults:
+  title: "grafana alert"
+field_map:
+  id: fingerprint
+  title: [labels.alertname, annotations.summary]
+  severity: labels.severity
+  description: annotations.description
+  timestamp: startsAt
+  link: generatorURL
+  hostname: labels.instance
+  code: labels.grafana_code
+severity_map:
+  exact:
+    warning: medium
+    info: informational
+  default: low

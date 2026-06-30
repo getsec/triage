@@ -1,0 +1,17 @@
+source: wiz
+finding_class: posture_finding
+delivery_method: webhook
+alerts_path: issues
+required: [id, title]
+field_map:
+  id: id
+  title: [name, rule.name, type]
+  severity: severity
+  finding_status: status
+  resource_id: resource.id
+  resource_type: resource.type
+  cloud_region: resource.region
+  cloud_account_id: resource.subscriptionId
+  cloud_provider: resource.cloudPlatform
+  first_seen_at: createdAt
+  last_seen_at: updatedAt

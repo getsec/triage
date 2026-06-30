@@ -1,0 +1,16 @@
+{
+  "alerts": [
+    {
+      "alert_id": "orca-alert-1",
+      "type_string": "S3 bucket is publicly accessible",
+      "score": 8.5,
+      "state": "open",
+      "asset_type": "S3Bucket",
+      "asset_unique_id": "arn:aws:s3:::example-bucket",
+      "cloud_account_id": "111122223333",
+      "cloud_vendor": "aws",
+      "cve_list": ["CVE-2026-0001"],
+      "recommendation": "Disable public access on the bucket."
+    }
+  ]
+}

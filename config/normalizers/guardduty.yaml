@@ -1,0 +1,22 @@
+source: guardduty
+finding_class: threat_detection
+delivery_method: eventbridge
+required: [id, title]
+field_map:
+  id: id
+  title: [title, type]
+  severity: severity
+  description: description
+  timestamp: [updatedAt, createdAt]
+  cloud_account_id: accountId
+  cloud_region: region
+  resource_id: resource.instanceDetails.instanceId
+defaults:
+  cloud_provider: aws
+severity_map:
+  ranges:
+    - {min: 1, max: 3.9, band: low}
+    - {min: 4, max: 6.9, band: medium}
+    - {min: 7, max: 8.9, band: high}
+    - {min: 9, max: 10, band: critical}
+  default: low

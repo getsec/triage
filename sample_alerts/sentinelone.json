@@ -1,0 +1,10 @@
+{
+  "alertInfo": {
+    "alertId": "s1-alert-1",
+    "alertName": "Malware detected on endpoint",
+    "analystVerdict": "true_positive",
+    "createdAt": "2026-06-29T12:00:00Z"
+  },
+  "ruleInfo": {"name": "Static AI - Suspicious", "severity": "High"},
+  "agentDetectionInfo": {"agentHostname": "mac-ep-03"}
+}
